@@ -5,6 +5,7 @@ import Buttons from "./components/Buttons";
 import DataToday from "./components/DataToday";
 import DataWeather from "./components/DataWeather";
 
+
 const API_KEY = "0554d9821a896924538be4a7c123c706";
 const CNT = 5;
 
@@ -26,51 +27,55 @@ class App extends React.Component{
   }
 
   getWeatherData = async(e) =>{
-    e.preventDefault();
-    const city = e.target.elements.city.value;
-    const urlDataWeather =
-    await fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=${CNT}&appid=${API_KEY}&units=metric&lang=ru`);
-    const dataWeather = await urlDataWeather.json();
-    console.log(dataWeather);
+      e.preventDefault();
+      const city = e.target.elements.city.value;
 
-    this.setState({
-        city: dataWeather.city.name,
-        country: dataWeather.city.country,
-        feels_like: dataWeather.list[0].feels_like.day,
-        pressure: dataWeather.list[0].pressure,
-        humidity: dataWeather.list[0].humidity,
-        speed: dataWeather.list[0].speed,
-        deg: dataWeather.list[0].deg,
-        date1: dataWeather.city.timezone,
+      if (city){
+            const urlDataWeather =
+            await fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=${CNT}&appid=${API_KEY}&units=metric&lang=ru`);
+            const dataWeather = await urlDataWeather.json();
+            console.log(dataWeather);
 
-        date: [dataWeather.list[0].dt,
-              dataWeather.list[1].dt,
-              dataWeather.list[2].dt,
-              dataWeather.list[3].dt,
-              dataWeather.list[4].dt
-              ],
+            this.setState({
+                city: dataWeather.city.name,
+                country: dataWeather.city.country,
+                feels_like: dataWeather.list[0].feels_like.day,
+                pressure: dataWeather.list[0].pressure,
+                humidity: dataWeather.list[0].humidity,
+                speed: dataWeather.list[0].speed,
+                deg: dataWeather.list[0].deg,
+                date1: dataWeather.city.timezone,
 
-        temp: [dataWeather.list[0].temp.day,
-               dataWeather.list[1].temp.day,
-               dataWeather.list[2].temp.day,
-               dataWeather.list[3].temp.day,
-               dataWeather.list[4].temp.day
-              ],
+                date: [dataWeather.list[0].dt,
+                    dataWeather.list[1].dt,
+                    dataWeather.list[2].dt,
+                    dataWeather.list[3].dt,
+                    dataWeather.list[4].dt
+                ],
 
-        description: [dataWeather.list[0].weather[0].description,
-                     dataWeather.list[1].weather[0].description,
-                     dataWeather.list[2].weather[0].description,
-                     dataWeather.list[3].weather[0].description,
-                     dataWeather.list[4].weather[0].description
-                     ],
+                temp: [dataWeather.list[0].temp.day,
+                    dataWeather.list[1].temp.day,
+                    dataWeather.list[2].temp.day,
+                    dataWeather.list[3].temp.day,
+                    dataWeather.list[4].temp.day
+                ],
 
-        icon: [dataWeather.list[0].weather[0].description,
-               dataWeather.list[1].weather[0].description,
-               dataWeather.list[2].weather[0].description,
-               dataWeather.list[3].weather[0].description,
-               dataWeather.list[4].weather[0].description
-              ]
-    })
+                description: [dataWeather.list[0].weather[0].description,
+                    dataWeather.list[1].weather[0].description,
+                    dataWeather.list[2].weather[0].description,
+                    dataWeather.list[3].weather[0].description,
+                    dataWeather.list[4].weather[0].description
+                ],
+
+                icon: [dataWeather.list[0].weather[0].description,
+                    dataWeather.list[1].weather[0].description,
+                    dataWeather.list[2].weather[0].description,
+                    dataWeather.list[3].weather[0].description,
+                    dataWeather.list[4].weather[0].description
+                ]
+            })
+    }
+
   }
 
 
@@ -89,11 +94,11 @@ class App extends React.Component{
             speed={this.state.speed}
             deg={this.state.deg}
         />
-        <DataWeather
-            date={this.state.date}
-            temp={this.state.temp}
-            description={this.state.description}
-            icon={this.state.icon}
+       <DataWeather
+           date={this.state.date}
+           temp={this.state.temp}
+           description={this.state.description}
+           icon={this.state.icon}
         />
       </div>
     );
