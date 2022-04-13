@@ -8,6 +8,12 @@ import DataWeather from "./components/DataWeather";
 
 const API_KEY = "0554d9821a896924538be4a7c123c706";
 const CNT = 5;
+function DateUSF (props) {
+    var d = props*1000;
+    var date = new Date();
+    date.setUTCMilliseconds(d);
+    var new_date = date.toDateString();
+}
 
 class App extends React.Component{
   //состояние
@@ -31,10 +37,15 @@ class App extends React.Component{
       const city = e.target.elements.city.value;
 
       if (city){
-            const urlDataWeather =
-            await fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=${CNT}&appid=${API_KEY}&units=metric&lang=ru`);
-            const dataWeather = await urlDataWeather.json();
-            console.log(dataWeather);
+          const urlDataWeather =
+          await fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=${CNT}&appid=${API_KEY}&units=metric&lang=ru`);
+          const dataWeather = await urlDataWeather.json();
+          console.log(dataWeather);
+
+          var d = dataWeather.city.timezone
+          var date = new Date();
+          date.setUTCMilliseconds(d);
+          var new_date = date.toDateString();
 
             this.setState({
                 city: dataWeather.city.name,
@@ -44,7 +55,7 @@ class App extends React.Component{
                 humidity: dataWeather.list[0].humidity,
                 speed: dataWeather.list[0].speed,
                 deg: dataWeather.list[0].deg,
-                date1: dataWeather.city.timezone,
+                date1: new_date,
 
                 date: [dataWeather.list[0].dt,
                     dataWeather.list[1].dt,
@@ -67,11 +78,11 @@ class App extends React.Component{
                     dataWeather.list[4].weather[0].description
                 ],
 
-                icon: [dataWeather.list[0].weather[0].description,
-                    dataWeather.list[1].weather[0].description,
-                    dataWeather.list[2].weather[0].description,
-                    dataWeather.list[3].weather[0].description,
-                    dataWeather.list[4].weather[0].description
+                icon: [dataWeather.list[0].weather[0].icon,
+                    dataWeather.list[1].weather[0].icon,
+                    dataWeather.list[2].weather[0].icon,
+                    dataWeather.list[3].weather[0].icon,
+                    dataWeather.list[4].weather[0].icon
                 ]
             })
     }
@@ -90,7 +101,7 @@ class App extends React.Component{
             pressure={this.state.pressure}
             humidity={this.state.humidity}
             temp={this.state.temp[0]}
-            date={this.state.date[0]}
+            date={this.state.date1}
             speed={this.state.speed}
             deg={this.state.deg}
         />

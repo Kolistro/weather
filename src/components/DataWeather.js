@@ -1,59 +1,65 @@
 import React from "react";
-import app from "../App";
 
-function ListItem(props) {
-    return <p>{props.value}</p>;
+function DateUSF (props) {
+    var d = props.value*1000;
+    var date = new Date(d);
+    return date.toDateString();
 }
-async function UrlICon(props) {
 
-}
 
 class DataWeather extends React.Component {
-    getIconWeather;
+
     render() {
+        const d = this.props.date;
+        const newDate = d.map((d) =>
 
-        const temps = this.props.temp;
-        const listTemp = temps.map((temps) =>
-            <ListItem key={temps.toString()} value={temps}/>
-        );
-        const descriptions = this.props.description;
-        const listDescription = descriptions.map((descriptions) =>
-            <ListItem key={descriptions.toString()} value={descriptions}/>
+            <DateUSF key={d.toString()} value={d} />
         );
 
-        /*
-        const icon = this.props.icon;
-        const listIcon = icon.map((icon) =>
-            <UrlICon key={icon.toString()} value={icon}/>
-        );
+        let date = newDate.map(function (item){
+            return <tr key={item.toString()}>
+                <td>
+                    {item}
+                </td>
+            </tr>;
+        });
 
-        const img = [];
-        this.getIconWeather = async(e) =>{
-            const urlIconWeather =
-                await fetch(`http://openweathermap.org/img/wn/${listIcon}@2x.png`);
-            const iconWeather = await urlIconWeather.json();
-            console.log(iconWeather);
-            img.app(iconWeather);
-        }
+        let temp = this.props.temp.map(function(item) {
+            return <tr key={item.id}>
+                <td>{item}</td>
+            </tr>;
+        });
 
-        /*
-        const icon = this.props.icon;
-        const  listIcon = icon.map((icon) =>
-        <UrlICon key={icon.toString()} value={icon} />
-        );*/
+        let description = this.props.description.map(function(item) {
+            return <tr key={item.id}>
+                <td>{item}</td>
+            </tr>;
+        });
+
+        let icon = this.props.icon.map(function(item) {
+            return <tr key={item.id}>
+                <td>{item}</td>
+            </tr>;
+        });
 
         return (
             <div>
-                <div>
-                    {listTemp}
-                </div>
-                <div>
-                    {listDescription}
-                </div>
-                <div>
-
-                </div>
-
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Дата</td>
+                            <td>Температура</td>
+                            <td>Описание</td>
+                            <td>Иконка</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td>{date}</td>
+                        <td>{temp}</td>
+                        <td>{description}</td>
+                        <td>{icon}</td>
+                    </tbody>
+                </table>
             </div>
         );
     }
@@ -84,21 +90,4 @@ ReactDOM.render(
   <NumberList numbers={numbers} />,
   document.getElementById('root')
 );
- */
-
-/*
-const numbers = [1, 2, 3, 4, 5];
-const listItems = numbers.map((numbers) =>
-  <li>{numbers}</li>
-);
-
-ReactDOM.render(
-  <ul>{listItems}</ul>,
-  document.getElementById('root')
-);
-*/
-/*
-["dog", "cat", "hen"].forEach(function(currentValue, index, array) {
-// Сделать что-нибудь с currentValue или array[index]
-});
  */
