@@ -13,8 +13,9 @@ class DataToday extends React.Component {
                         <p>Давление: {this.props.pressure} мм рт.ст.</p>
                         <p>Влажность: {this.props.humidity}%</p>
                         <p>Ветер: {this.props.speed} м/с, {this.props.deg}</p>
+
                     </div>
-            }
+            }<p>{this.props.error}</p>
             </div>
         );
     }
