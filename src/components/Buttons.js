@@ -7,11 +7,12 @@ class Button extends React.Component {
             //<input> текстовое поле и плэйсхолдер для ввода города
             //<button>  кнопка для получения погоды
             <form onSubmit={this.props.weather}>
-                <div>
+                <div className="bot">
                     Узнай погоду в вашем городе!
                 </div>
                 <input type="text" name="city" placeholder="Город"/>
                 <button>Получить погоду</button>
+                <div className="error">{this.props.error}</div>
             </form>
         );
     }

@@ -17,7 +17,7 @@ class DataWeather extends React.Component{
 
         let date = newDate.map(function (item){
             return <tr key={item.id}>
-                <td>
+                <td className="pad color">
                     {item}
                 </td>
             </tr>;
@@ -25,38 +25,39 @@ class DataWeather extends React.Component{
 
         let temp = this.props.temp.map(function(item) {
             return <tr key={item.id}>
-                <td>{item}</td>
+                <td className="pad color">{item}</td>
             </tr>;
         });
 
         let description = this.props.description.map(function(item) {
             return <tr key={item.id}>
-                <td>{item}</td>
+                <td className="pad color">{item}</td>
             </tr>;
         });
 
         let icon = this.props.icon.map(function(item) {
             return <tr key={item.id}>
-                <td><img src={item} /></td>
+                <td className="color"> <img src={item} /> </td>
             </tr>;
         });
 
         return (
             <div>{
-                <table>
-                    <thead>
-                    <tr>
-                        <td>Дата</td>
-                        <td>Температура</td>
-                        <td>Описание</td>
-                        <td>Иконка</td>
+                <table className="table ">
+                    <thead >
+                    <p className="he g">Погода на 5 дней</p>
+                    <tr >
+                        <td className="pad color">Дата</td>
+                        <td className="pad color">Температура</td>
+                        <td className="pad color">Описание</td>
+                        <td className="color">Иконка</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <td>{date}</td>
-                    <td>{temp}</td>
-                    <td>{description}</td>
-                    <td>{icon}</td>
+                        <td>{date}</td>
+                        <td>{temp}</td>
+                        <td>{description}</td>
+                        <td className="fix">{icon}</td>
                     </tbody>
                 </table>
             }

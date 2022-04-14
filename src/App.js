@@ -41,9 +41,8 @@ class App extends React.Component{
           const dataWeather = await urlDataWeather.json();
           console.log(dataWeather);
 
-          const d = dataWeather.city.timezone;
-          const date = new Date();
-          date.setUTCMilliseconds(d);
+          const d = dataWeather.list[0].dt*1000;
+          const date = new Date(d);
           const new_date = date.toDateString();
 
           this.setState({
@@ -107,31 +106,40 @@ class App extends React.Component{
   }
   render() {
     return(
-      <div>
-          <Buttons weather={this.getWeatherData} />
-          <DataToday
-              city={this.state.city}
-              country={this.state.country}
-              feels_like={this.state.feels_like}
-              pressure={this.state.pressure}
-              humidity={this.state.humidity}
-              temp={this.state.temp[0]}
-              date={this.state.date1}
-              speed={this.state.speed}
-              deg={this.state.deg}
-              error={this.state.error}
-          />
-          {this.state.city&&
-          <div>
+      <div className="wrapper">
+          <div className="main">
+              <div className="container">
+                  <div className="row">
+                      <div className="col-sm-5 info">
+                          <Buttons weather={this.getWeatherData}
+                                   error={this.state.error}
+                          />
+                      </div>
+                      {this.state.city&&
+                          <div  className="height">
 
-              <DataWeather
-                  date={this.state.date}
-                  temp={this.state.temp}
-                  description={this.state.description}
-                  icon={this.state.icon}
-              />
+                              <DataWeather
+                                  date={this.state.date}
+                                  temp={this.state.temp}
+                                  description={this.state.description}
+                                  icon={this.state.icon}
+                              />
+                          </div>
+                      }
+                      <DataToday
+                          city={this.state.city}
+                          country={this.state.country}
+                          feels_like={this.state.feels_like}
+                          pressure={this.state.pressure}
+                          humidity={this.state.humidity}
+                          temp={this.state.temp[0]}
+                          date={this.state.date1}
+                          speed={this.state.speed}
+                          deg={this.state.deg}
+                      />
+                  </div>
+              </div>
           </div>
-      }
       </div>
     );
   }
