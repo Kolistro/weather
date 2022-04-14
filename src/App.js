@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css';
 import './components/Buttons'
 import Buttons from "./components/Buttons";
@@ -8,12 +8,7 @@ import DataWeather from "./components/DataWeather";
 
 const API_KEY = "0554d9821a896924538be4a7c123c706";
 const CNT = 5;
-function DateUSF (props) {
-    var d = props*1000;
-    var date = new Date();
-    date.setUTCMilliseconds(d);
-    var new_date = date.toDateString();
-}
+
 
 class App extends React.Component{
   //состояние
@@ -31,6 +26,7 @@ class App extends React.Component{
     description: [],          //описание погоды на 5  дней
     icon: []                  //иконка погоды на 5 дней
   }
+    timezone;
 
   getWeatherData = async(e) =>{
       e.preventDefault();
@@ -42,10 +38,10 @@ class App extends React.Component{
           const dataWeather = await urlDataWeather.json();
           console.log(dataWeather);
 
-          var d = dataWeather.city.timezone
-          var date = new Date();
+          const d = dataWeather.city.timezone;
+          const date = new Date();
           date.setUTCMilliseconds(d);
-          var new_date = date.toDateString();
+          const new_date = date.toDateString();
 
             this.setState({
                 city: dataWeather.city.name,
@@ -78,13 +74,14 @@ class App extends React.Component{
                     dataWeather.list[4].weather[0].description
                 ],
 
-                icon: [dataWeather.list[0].weather[0].icon,
-                    dataWeather.list[1].weather[0].icon,
-                    dataWeather.list[2].weather[0].icon,
-                    dataWeather.list[3].weather[0].icon,
-                    dataWeather.list[4].weather[0].icon
+                icon: [
+                    "http://openweathermap.org/img/w/" + dataWeather.list[0].weather[0].icon + ".png",
+                    "http://openweathermap.org/img/w/" + dataWeather.list[1].weather[0].icon + ".png",
+                    "http://openweathermap.org/img/w/" + dataWeather.list[2].weather[0].icon + ".png",
+                    "http://openweathermap.org/img/w/" + dataWeather.list[3].weather[0].icon + ".png",
+                    "http://openweathermap.org/img/w/" + dataWeather.list[4].weather[0].icon + ".png",
                 ]
-            })
+            });
     }
 
   }
